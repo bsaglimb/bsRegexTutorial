@@ -1,4 +1,4 @@
-# Title (replace with your title)
+# Regex Tutorial: Matching a HTML tag
 
 As a fullstack software engineer student, I have developed a tutorial explaining a specifics of regex so that we can understand the search pattern the regex defines.
 
