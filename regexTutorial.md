@@ -90,6 +90,11 @@ NOTE: Unicode is an international character encoding standard that provides a un
 
 ### Grouping and Capturing
 
+- `(ABC)` Capturing groups multiple tokens together and creates a capture group for extracting a substring or using a backreference.
+- `(?<name>ABC)` named capturing group captures groups of a specific name.
+- `\1` is a numeric Referance
+- `(?:ABC)` Groups multiple tokens together without creating a capture group.
+
 ### Bracket Expressions
 
 ### Greedy and Lazy Match
