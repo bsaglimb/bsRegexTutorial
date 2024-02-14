@@ -29,6 +29,7 @@ Example: /^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/
 
 ### Anchors
 
+A caret `^` anchor is used to search the beginning of the selected text, because typically in a HTML document, HTML tags are written first in an HTML element. At the end, there is validation `$` if the ending matches the pattern of a closing or self-closing tag.
 
 - `^abc$` -^start / $end of the string
     * `^` Matches the beginning of the string, or the beginning of a line if the multiline flag (m) is enabled. This matches a position, not a character.
@@ -41,7 +42,11 @@ Example: /^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/
 
 ### Quantifiers
 
-Quantifiers indicate that the preceding token must be matched a certain number of times. A quantifire can be greedy or lazy that is explained below.
+Quantifiers indicate that the preceding token must be matched a certain number of times. A quantifire can be greedy or lazy that is explained below. 
+- `[a-z]+` checks for 1 or more lowercase letters
+- `[^<]+` checks for 1 or more characters that are not <
+- `([^<]+)*` checks for 0 or more instances of that capture group
+- `\s+\` checks for 1 or more whitespace
 
 - `a*a+a?` -0 or more, 1 or more, 0 or 1
     * ``"+"` Matches 1 or more of the preceding token.
@@ -59,11 +64,14 @@ Quantifiers indicate that the preceding token must be matched a certain number o
 
 ### OR Operator
 
-- `|` Acts like a boolean OR and matches the expression before or after the |. It can operate within a group, or on a whole expression. The patterns will be tested in order. Just as in javascript, it will match either set of characters. It will look for this OR that. The OR operator indicates that it could either of the components that we are separating.
+- `|` Acts like a boolean OR and matches the expression before or after the `|`. It can operate within a group, or on a whole expression. The patterns will be tested in order. Just as in javascript, it will match either set of characters. It will look for this OR that. The OR operator indicates that it could either of the components that we are separating.
+In the HTML tag example `|` denotes alternation, allowing either of the specified patterns to match.
 
 ### Character Classes
 
 Character classes match a character from a specific set. There are a number of predefined character classes and you can also define your own sets. Character classes are components within our regular expression that tells us what type of characters to expect.
+In the HTML tag example: `\s+\` denotes white space to match the formatting of closing tags. 
+
 
 - `[ABC]` Characters inside brakets will match any character in the set.
 - `[^ABC]`Adding caret will match any character that is not in the set.
@@ -75,9 +83,11 @@ Character classes match a character from a specific set. There are a number of p
 - `\d` Matches any digit character. (0-9)
 - `\p` Matches a character in the specified unicode category.
 
+
 ### Flags
 
 Expression flags change how the expression is interpreted. Flags follow the closing forward slash of the expression.
+No flags are used in the HTML tag regex.
 
 - `i` Ignores case
 - `g` Global search retain the index of the last match, allowing subsequent searches to start from the end of the previous match. Without the global flag, subsequent searches will return the same match.
@@ -90,6 +100,13 @@ NOTE: Unicode is an international character encoding standard that provides a un
 
 ### Grouping and Capturing
 
+^<`([a-z]+)` `([^<]+)`*`(?:>(.*)<\/\1>|\s+\/>)`$
+
+- `([a-z]+)` is the first capture group, which becomes useful in comparing closing tags
+- `([^<]+)` is the second capture group, which captures HTML attributes, such as class or src
+- `\1` references the first capture group and checks for a similar value
+- `(?:>(.*)<\/\1>|\s+\/>)` is a non-capture group, which captures the content of the HTML element
+
 - `(ABC)` Capturing groups multiple tokens together and creates a capture group for extracting a substring or using a backreference.
 - `(?<name>ABC)` named capturing group captures groups of a specific name.
 - `\1` is a numeric Referance
@@ -99,12 +116,14 @@ NOTE: Unicode is an international character encoding standard that provides a un
 
 A bracket expression enclosed in square brackets is a regular expression that matches a single character, or collating element. If the initial character is a circumflex ^, then this bracket expression is complemented.
 
-In this example
+In the HTML tag regex example `[^<]` creates a list that contains characters that are not < while `[a-z]` creates a list that contains lowercase alphabet letters.
 
 See Character Class to see some other examples.
 
 
 ### Greedy and Lazy Match
+
+`+`, `*`, `.*` in the HTML tag example indicates greedy matching, where the regex engine matches as much text as possible.
 
 - 'Greedy' means matching the longest possible string. A Greedy quantifier tells the engine to match as many instances of its quantified token or subpattern as possible. This behavior is called greedy.
 
@@ -116,6 +135,7 @@ NOTE: By default, a regex will perform a greedy match. We can use `?` to match i
 ### Boundaries
 
 Not to be confused with actual characters, simply put, Boundaries are the places between characters. A Boundary should be thought of as a wall between any adjacent characters.
+
 
 - The `\b` is an anchor like the caret and the dollar sign. It matches at a position that is called a “word boundary”. This match is zero-length.
 
@@ -133,6 +153,8 @@ Not to be confused with actual characters, simply put, Boundaries are the places
 -For Example: `<([A-Z][0-9]*)\b[^>]*>.*?</\1>` This regex contains only one pair of parentheses, which capture the string matched by `[A-Z][0-9]*`. This is the opening HTML tag. The backreference `\1` references the first capturing group. `\1` matches the exact same text that was matched by the first capturing group. The `/` before it is a literal character. It is simply the forward slash in the closing HTML tag that we are trying to match.
 
 ### Look-ahead and Look-behind
+
+ There are no look-ahead or look-behind assertions used in the HTML tag regex.
 
 `(?=ABC)` is a postive lookahead and it matches a group after the main expression without including it in the result.
 
