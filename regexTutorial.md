@@ -59,6 +59,8 @@ Quantifiers indicate that the preceding token must be matched a certain number o
 
 ### OR Operator
 
+- `|` Acts like a boolean OR and matches the expression before or after the |. It can operate within a group, or on a whole expression. The patterns will be tested in order. Just as in javascript, it will match either set of characters. It will look for this OR that. The OR operator indicates that it could either of the components that we are separating.
+
 ### Character Classes
 
 ### Flags
