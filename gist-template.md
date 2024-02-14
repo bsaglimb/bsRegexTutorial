@@ -4,9 +4,12 @@ As a fullstack software engineer student, I have developed a tutorial explaining
 
 ## Summary
 
-A regular expression, or regex, is a sequence of characters used to match patterns in text. These expressions are extremely useful for extracting data like phone numbers, emails, etc that follow a specific pattern from text, and they can be used in almost any programming language including JavaScript
+A regex or regular expression are patterns used to match character combinations in strings. In JavaScript, regular expressions are also objects. These expressions are extremely useful for extracting data like phone numbers, emails, etc that follow a specific pattern from text, and they can be used in almost any programming language including JavaScript. It is a technique commonly developed in theoretical computer science.
 
-Briefly summarize the regex you will be describing and what you will explain. Include a code snippet of the regex. Replace this text with your summary.
+We will look at a string of code using regex, this code looks for a match HTML tag.
+
+Example: /^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/
+
 
 ## Table of Contents
 
