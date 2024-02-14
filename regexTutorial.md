@@ -77,4 +77,4 @@ Quantifiers indicate that the preceding token must be matched a certain number o
 
 ## Author
 
-A short section about the author with a link to the author's GitHub profile (replace with your information and a link to your profile)
+My name is Brianna Saglimbeni, and I'm a full stack web developer in training with the University of Miami. My github is [bsaglimb](https://github.com/bsaglimb). Please also feel free to email me at bsaglimb@gmail.com. 
