@@ -66,10 +66,10 @@ Quantifiers indicate that the preceding token must be matched a certain number o
 Character classes match a character from a specific set. There are a number of predefined character classes and you can also define your own sets. Character classes are components within our regular expression that tells us what type of characters to expect.
 
 - `[ABC]` Characters inside brakets will match any character in the set.
-- `[^ABC]`Adding carrot will match any character that is not in the set.
+- `[^ABC]`Adding caret will match any character that is not in the set.
 - `[A-Z]` Adding a dash between two characters will select a range.
 - `.` Will Match any characters expect linebreaks. Its like a wildcard and will accpet any input.
-- `[\s\S]` A character set that can be used to match any character, including line breaks, without the dotall flag. (An alternative is [^] carrot in brackets, but it is not supported in all browsers)
+- `[\s\S]` A character set that can be used to match any character, including line breaks, without the dotall flag. (An alternative is [^] caret in brackets, but it is not supported in all browsers)
 - `\w` Matches any word character (alphanumeric & underscore). Only matches low-ascii characters (no accented or non-roman characters).
 - `\W` Matches any character that is not a word character. (alphanumeric and underscore)
 - `\d` Matches any digit character. (0-9)
@@ -97,13 +97,52 @@ NOTE: Unicode is an international character encoding standard that provides a un
 
 ### Bracket Expressions
 
+A bracket expression enclosed in square brackets is a regular expression that matches a single character, or collating element. If the initial character is a circumflex ^, then this bracket expression is complemented.
+
+In this example
+
+See Character Class to see some other examples.
+
+
 ### Greedy and Lazy Match
+
+- 'Greedy' means matching the longest possible string. A Greedy quantifier tells the engine to match as many instances of its quantified token or subpattern as possible. This behavior is called greedy.
+
+- 'Lazy' means matching the shortest possible string. A lazy quantifier tells the engine to match as few of the quantified tokens as needed. As you'll see in the table below, a regular quantifier is made lazy by appending a ? question mark to it.
+
+NOTE: By default, a regex will perform a greedy match. We can use `?` to match in a lazy way.
+
 
 ### Boundaries
 
+Not to be confused with actual characters, simply put, Boundaries are the places between characters. A Boundary should be thought of as a wall between any adjacent characters.
+
+- The `\b` is an anchor like the caret and the dollar sign. It matches at a position that is called a “word boundary”. This match is zero-length.
+
+- Characters that are matched by the short-hand character class `\w` are the characters that are treated as word characters by word boundaries.
+
+- Since digits are considered to be word characters, `\b4\b` can be used to match a 4 that is not part of a larger number. So saying `\b` matches before and after an alphanumeric sequence is more exact than saying “before and after a word”.
+
+- `\B` is the negated version of `\b`. `\B` matches at every position where `\b` does not. Effectively, `\B` matches at any position between two word characters as well as at any position between two non-word characters.
+
+
 ### Back-references
 
+- Backreferences match the same text as previously matched by a capturing group. Suppose you want to match a pair of opening and closing HTML tags, and the text in between. By putting the opening tag into a backreference, we can reuse the name of the tag for the closing tag.
+
+-For Example: `<([A-Z][0-9]*)\b[^>]*>.*?</\1>` This regex contains only one pair of parentheses, which capture the string matched by `[A-Z][0-9]*`. This is the opening HTML tag. The backreference `\1` references the first capturing group. `\1` matches the exact same text that was matched by the first capturing group. The `/` before it is a literal character. It is simply the forward slash in the closing HTML tag that we are trying to match.
+
 ### Look-ahead and Look-behind
+
+`(?=ABC)` is a postive lookahead and it matches a group after the main expression without including it in the result.
+
+`(?!ABC)` is a negitive lookahead and it specifies a group that can not match after the main expression (if it matches, the result is discarded)
+
+`(?<=ABC>)` is a postive lookbehind and matches a group before the main expression without including it in the result.
+
+`(?<!ABC)` is a negitive lookbehind and Specifies a group that can not match before the main expression (if it matches, the result is discarded).
+
+Lookaheads and lookbehinds forces the main expressions to be what you have defined it as. Without it being exactly what it is it will not be accepted as a valid input.
 
 ## Author
 
